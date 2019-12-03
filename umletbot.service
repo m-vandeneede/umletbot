@@ -1,0 +1,13 @@
+[Unit]
+Description=Discord UmletBot Service
+After=network.target
+
+[Service]
+WorkingDirectory=/var/www/UmletBot/
+ExecStart=/var/www/UmletBot/main.js
+Restart=on-failure
+User=pi
+Group=nogroup
+
+[Install]
+WantedBy=multi-user.target

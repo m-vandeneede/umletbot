@@ -1,0 +1,13 @@
+UmletBot 0.3bDEV Changelog
+
+- Massive code simplification
+- Added support for scenarios
+- Added more default reaction lines
+- Added more custom reactions
+- Temporarily disabled X functionality after 'Press X to kill yourself' scenario
+- Added bot specific commands
+	
+	* umletbot help (actual documentation still in development)
+	* umletbot version
+	* umletbot info
+	* umletbot changelog

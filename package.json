@@ -1,0 +1,15 @@
+{
+  "name": "umletbot",
+  "version": "0.0.1",
+  "description": "get the umlet outa here",
+  "main": "main.js",
+  "author": "Maxim Van den Eede",
+  "license": "ISC",
+  "scripts": {
+    "test": "test"
+  },
+  "dependencies": {
+    "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
+    "winston": "^3.2.1"
+  }
+}
