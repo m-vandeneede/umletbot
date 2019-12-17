@@ -1,4 +1,9 @@
-UmletBot 0.3bDEV Changelog
+UmletBot 0.4bLIVE Changelog
+
+- Added killswitch (put umlet to sleep, sing a lullaby)
+- Few new default responselines
+
+UmletBot 0.3bLIVE Changelog
 
 - Massive code simplification
 - Added support for scenarios

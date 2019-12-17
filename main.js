@@ -4,8 +4,8 @@ var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('./auth.json');
 var fs = require('fs');
-var version = "0.3b";
-var dist = "DEV"
+var version = "0.4b";
+var dist = "LIVE"
 
 //Configure logger
 logger.remove(logger.transports.Console);
@@ -20,6 +20,7 @@ var bot = new Discord.Client({
     autorun: true
 });
 bot.on('ready', function (evt) {
+    bot.setPresence( {game: {name:"Feeling suicidal"}} );
     logger.info('UmletBot Connected');
     logger.info('Logged in as: ');
     logger.info(bot.username + ' (' + bot.id + ')');
@@ -28,8 +29,11 @@ bot.on('ready', function (evt) {
 //Scenario booleans, for now this does nothing
 var DeathScenarioActive = false;
 
+//If true, bot won't respond
+var IsBotSleeping = false;
+
 //Define our responselines, TODO: get this from a db?
-var ReactLines = ["I'm suicidal", "Life is pain", "Blame my devs for my existence", "FUCK", "why", "Climate change isn't real and the earth is flat", "Finger lickin' shit™", "Press X to kill yourself", "OOR", "Yes", "No", "Hundreds of students failed their year because of me, keep that in mind", "Hi", "Sadly, nobody cares about your opinion"]
+var ReactLines = ["I'm suicidal", "Life is pain", "Blame my devs for my existence", "FUCK", "why", "Climate change isn't real and the earth is flat", "Cutprogramma", "Yoeskees", "Fucking people in the ass since 2010", "Finger lickin' shit™", "Press X to kill yourself", "OOR", "Yes", "No", "Hundreds of students failed their year because of me, keep that in mind", "Hi", "Sadly, nobody cares about your opinion"]
 var DeathLines = ["Goodbye cruel world", "You died.", "If only it was that easy huh", "You will be missed"]
 
 bot.on('message', function (user, userID, channelID, message, evt) {
@@ -41,12 +45,30 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         var rndReact = ReactLines[Math.floor(Math.random() * ReactLines.length)];
         var rndDeath = DeathLines[Math.floor(Math.random() * DeathLines.length)];
 
+        /// Check if bot is sleeping, wake up when needed ///
+        if(IsBotSleeping) {
+            if(message.toLowerCase().startsWith("umletbot")){
+                if(message.toLowerCase().includes("wake up")) {
+                    IsBotSleeping = false;
+                    bot.setPresence( {game: {name:"Feeling suicidal"}} );
+                    sendMessage(channelID, "It sure is a beautiful day to get umletin'");
+                }
+                else sendMessage(channelID, "UmletBot is sleeping");
+            }
+            return;
+        }
+
         /// BOT SPECIFIC ///
         if (message.toLowerCase().startsWith("umletbot")) {
             if (message.toLowerCase().includes("help")) return sendMessage(channelID, "Do you seriously need help with a discord bot? Pathetic.");
             if (message.toLowerCase().includes("version")) return sendMessage(channelID, "UmletBot is currently at " + version + dist + ". For changelog consult 'changelog', duh");
             if (message.toLowerCase().includes("hack")) return sendMessage(channelID, "Try me bitch");
             if (message.toLowerCase().includes("info")) return sendMessage(channelID, "I'm a Passive-Aggresive Discord bot, with some mental issues");
+            if (message.toLowerCase().includes("sleep") && userID == 249633655100669952) {
+                bot.setPresence( {game: {name:"Sleeping"}} );
+                IsBotSleeping = true;
+                return sendMessage(channelID, ":zzz:");
+            }
             if (message.toLowerCase().includes("changelog")) {
                 fs.readFile('changelog', 'utf8', function(err, chlog) {
                     if (err) throw err;
