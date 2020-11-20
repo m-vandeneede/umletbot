@@ -33,8 +33,8 @@ var DeathScenarioActive = false;
 var IsBotSleeping = false;
 
 //Define our responselines, TODO: get this from a db?
-var ReactLines = ["I'm suicidal", "Life is pain", "Blame my devs for my existence", "FUCK", "why", "Climate change isn't real and the earth is flat", "Cutprogramma", "Yoeskees", "Fucking people in the ass since 2010", "Finger lickin' shit™", "Press X to kill yourself", "OOR", "Yes", "No", "Hundreds of students failed their year because of me, keep that in mind", "Hi", "Sadly, nobody cares about your opinion"]
-var DeathLines = ["Goodbye cruel world", "You died.", "If only it was that easy huh", "You will be missed"]
+var ReactLines = []
+var DeathLines = []
 
 bot.on('message', function (user, userID, channelID, message, evt) {
     try {
